@@ -1,0 +1,23 @@
+name: Build Haven Isle iOS IPA
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-ipa:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile Native iOS App & Package Haven_Isle.ipa
+        run: |
+          chmod +x build_ipa.sh
+          ./build_ipa.sh
+
+      - name: Upload Haven_Isle.ipa Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Haven_Isle_iOS_IPA
+          path: Haven_Isle.ipa
